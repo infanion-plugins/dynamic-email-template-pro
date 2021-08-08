@@ -11,10 +11,13 @@
         "email templates"
     ],
     "support": {
-        "docs": "???",
-        "issues": "???"
+        "email": "support-craftplugins@infanion.com",
+        "source": "https://github.com/infanion-plugins/dynamic-email-template-pro",
+        "docs": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/README.md",
+        "issues": "https://github.com/infanion-plugins/dynamic-email-template-pro/issues"
     },
-    "license": "MIT",
+
+    "license": "proprietary",
     "authors": [
         {
             "name": "Infanion",
@@ -40,8 +43,8 @@
         "handle": "email-templates",
         "developer": "Infanion",
         "developerUrl": "https://www.infanion.com/",
-        "documentationUrl": "???",
-        "changelogUrl": "???",
+        "documentationUrl": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/README.md",
+        "changelogUrl": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/CHANGELOG.md",
         "components": {
             "emailTemplatesService": "ipcraft\\emailtemplates\\services\\EmailTemplatesService"
         },
