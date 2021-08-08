@@ -1,0 +1,24 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Email Templates plugin for Craft CMS 3.x
+ *
+ * EmailTemplatesField Field Input
+ *
+ * @author    Infanion
+ * @copyright Copyright (c) 2021 Infanion
+ * @link      https://www.infanion.com/
+ * @package   EmailTemplates
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{{ forms.textField({
+        label: 'Some Field',
+        instructions: 'Enter some text here.',
+        id: name,
+        name: name,
+        value: value})
+}}

@@ -1,0 +1,7 @@
+
+{% set title = "Unauthorized"|t('app') %}
+
+<div>
+    <h2>{{ title }}</h2>
+    <p>{{ (message ?? null) ?: "You don’t have the proper credentials to access this page."|t('app') }}</p>
+</div>

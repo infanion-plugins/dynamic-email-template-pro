@@ -1,0 +1,110 @@
+{% extends 'email-templates/_layouts' %}
+{% import '_includes/forms' as forms %}
+{% do view.registerAssetBundle("craft\\redactor\\assets\\redactor\\RedactorAsset") %}
+{% do view.registerAssetBundle("ipcraft\\emailtemplates\\assetbundles\\emailtemplates\\EmailTemplatesAsset") %}
+{% set selectedTab = 'mailcontents' %}
+{% set crumbs = [
+    { label: 'Templates' | t('mailtemplates'), url: url('email-templates/mailtemplates') },
+] %}
+{% set fullPageForm = true %}
+{% set noTabs = true %}
+{% set title = 'Update content' | t('mailtemplates') %}
+
+
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    {% if currentUser.can('manageContent') %}
+        <div id="save-btn-container" class="btngroup submit">
+            <button type="submit" class="btn submit">{{ 'Save'|t('mailcontents') }}</button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% set formAttributes = {
+    'id': 'contentForm',
+    'method': 'post',
+    'accept-charset': 'UTF-8',
+    'data': {
+        'saveshortcut': true,
+        'saveshortcut-scroll': true,
+        'confirm-unload': true,
+        'delta': true,
+    },
+} %}
+
+{% block blockContent %}
+    {% if currentUser.can('manageContent') %}
+        <form {{ attr(formAttributes) }}>
+            <input type="hidden" id = "lang" name="lang" value="{{ data.lang_id ?? '' }}">
+            <input type="hidden" id = "lang" name="tempid" value="{{ data.result.t_id ?? '' }}">
+            
+            {{ actionInput('email-templates/content/edit-content') }}
+            
+            {# <h2 style="margin-bottom: 25px;">Add Token</h2> #}
+            {% set csrfParam = craft.app.request.csrfParam %}
+            {% set csrfToken = craft.app.request.csrfToken %}
+            
+            <input type="hidden" name="{{ csrfParam }}" value="{{ csrfToken }}">
+            {{ csrfInput() }}
+        
+            <table class="tokens_table">
+                <tr>
+                    <td> {{ forms.textAreaField({
+                            first: true,
+                            label: 'Subject' | t('mailcontents'),
+                            id: 'subject',
+                            name: 'subject',
+                            rows: '1',
+                            value: data.result.subject ?? ' ',
+                            errors: subject.getErrors('codescriptionmment') ?? '',
+                        }) }}
+                    </td>
+                </tr>
+                <tr>
+                        <td> {{ forms.textAreaField({
+                                first: true,
+                                label: 'Body' | t('mailcontents'),
+                                id: 'body',
+                                name: 'body',
+                                rows: '10',
+                                value: data.result.body ?? ' ',
+                                errors: body.getErrors('codescriptionmment') ?? '',
+                            }) }}
+                            {% includeJs "$R('#body');" %}
+                        </td>
+                    </tr>
+                <tr>
+                    <td> <div class="buttons clearafter">
+                        <button name="submit" value="create" type="hidden">
+                        </button>
+                    </div></td>
+                </tr>
+            </table>
+            <h4>{{'Tokens used'|t('email-templates')}}</h4>
+            <table>
+                <tr>
+                    <td class="heading_text">Name</td>
+                    <td class="heading_text">Token</td>
+                </tr>
+                {% for key, user in data.result.tokens %}
+                <tr>
+                    <td>{{key}}</td>
+                    <td>{{ user }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+            
+        </form>
+    {% else %}
+        {% include "email-templates/_errors/nopermission.html" %}
+    {% endif %}
+{% endblock %}

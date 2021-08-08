@@ -1,0 +1,49 @@
+<table id="records_table" border='1' width="100%" class="paginated">
+    <thead class="trans_table_head">
+        <tr>
+            <th align="center">{{'Name'|t}}</th>
+            <th align="center">{{'Description'|t}}</th>
+            {% if currentUser.can('manageContent') %}
+                <th align="center">{{'Languages'|t}}</th>
+            {% endif %}
+
+            <th> {{'Test email'|t('email-templates')}} </th>
+            <th>{{'Actions'|t}}</th>                
+        </tr>
+    </thead>
+    {% for res in results %}
+        <tbody>
+            <tr>
+                {# <td><a href="template/update-template?id={{res['id']}}">{{res['name'] }}</a></td> #}
+                <td>{{res['name'] }}</td>
+                {# <td><a href="mailtemplates-update?id={{res['id']}}">{{res['name'] }}</a></td> #}
+                <td class="colwidth-test">{{res['description']|striptags|trim|truncate(80)  }}</td>
+                {% set sites = craft.app.sites.getAllSites() %}
+                {% set sitesize = sites|length %}
+                
+                {% if currentUser.can('manageContent') %}
+                    <td>
+                        {% for site in sites %}
+                            <a href="updatecontents?id={{site['id']}}&tempid={{res['id']}}" class="">{{site['language']}}</a><br/>
+                        {% endfor %}
+                    </td>
+                {% endif %}
+
+                <td><a href="send?id={{res['id']}}"><button  class='btn btn_popup' id="test-email-popup">{{'Test email'|t('email-templates')}}</button> </a></td>
+                
+                <td>
+                    <span class="delete-icon-center">
+                        <a href="mailtemplates-update?id={{res['id']}}"  title="Edit" role="button">
+                            <img src="{{editiconUrl}}" width="15" height="15">
+                        </a>
+                    </span>
+                    <span class="delete-icon-center">
+                        <a onclick="return confirm('Are you sure do you want to remove?')" href="removetemplates?id={{res['id']}}&destination={{ craft.app.request.hostInfo() ~ craft.app.request.url() }}" data-v-17492936="" title="Delete" role="button" href="#" data-v-23911c86="">
+                            <img src="{{deleteiconUrl}}" width="15" height="15">
+                        </a>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    {% endfor %}
+</table>

@@ -1,0 +1,81 @@
+{% extends 'email-templates/_layouts' %}
+{% import '_includes/forms' as forms %}
+
+{% set deleteiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/emailtemplates/assetbundles/emailtemplates/dist', true) ~ '/img/delete-icon.svg' %}
+{% set editiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/emailtemplates/assetbundles/emailtemplates/dist', true) ~ '/img/edit.svg' %}
+
+{% do view.registerAssetBundle("ipcraft\\emailtemplates\\assetbundles\\emailtemplates\\EmailTemplatesAsset") %}
+{# {% set crumbs = [
+    { label: 'Tokens' | t('tokens'), url: url('email-templates') },
+    { label: 'Templates' | t('mailtemplates'), url: url('email-templates/mailtemplates') },
+] %} #}
+
+{# {% requirePermission 'manageTokens' %} #}
+
+{% set selectedTab = 'tokens' %}
+
+{% set baseUrl = craft.app.request.serverName %}
+
+
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    <div class="headers">
+        <div class="header-div">
+            <div class="flex-grow texticon search icon clearable">
+                <input type="text" class="text trans_search_bar" onkeyup="myFunction()"  placeholder="{{'Search'|t}}" aria-label="Search" id="myInput">
+            </div>
+        </div>
+    </div>
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    <div id="save-btn-container" class="btngroup submit">
+        {% if currentUser.can('manageTokens') %}
+            <a class="btn submit add icon" href="{{ url('email-templates/tokens/new') }}">{{ "New Token"|t('email-templates') }}</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block blockContent %}
+
+    {% if currentUser.can('manageTokens') %}
+        <table id="records_table" border='1' width="100%" class="paginated">
+                <thead class="trans_table_head">
+                    <tr class="">
+                        <th>{{'Name'|t}}</th>
+                        <th>{{'Token'|t}}</th>
+                        <th>{{'Description'|t}}</th>
+                        <th>{{'Actions'|t}}</th>                
+                    </tr>
+                </thead>
+                {% for res in results %}
+                    <tbody>
+                        <tr><td>{{res['name']|striptags|trim }}</td>
+                            <td>{{res['token'] }}</td>
+                            <td>{{res['token_description']|striptags|trim|truncate(80)}}</td>
+                            <td>
+                                <span class="delete-icon-center">
+                                    <a href="email-templates/update?id={{res['id']}}"  title="Edit" role="button">
+                                        <img src="{{editiconUrl}}" width="15" height="15">
+                                    </a>
+                                </span>
+                                <span class="delete-icon-center">
+                                    <a href="email-templates/remove?id={{res['id']}}&destination={{ craft.app.request.hostInfo() ~ craft.app.request.url()  }}" onclick="return confirm('Are you sure do you want to remove?')" data-v-17492936="" title="Delete" role="button" href="#" data-v-23911c86="">
+                                        <img src="{{deleteiconUrl}}" width="15" height="15">
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+        </table>
+    {% else %}
+        {% include "email-templates/_errors/nopermission.html" %}
+    {% endif %}
+{% endblock %}

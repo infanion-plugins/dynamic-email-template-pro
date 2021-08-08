@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="150" height="150" viewBox="0 0 150 150">
+  <g id="email_template_09" data-name="email template 09" transform="translate(-585 -285)">
+    <g id="Group_49" data-name="Group 49" transform="translate(191 17)">
+      <g id="Group_45" data-name="Group 45" transform="translate(344 163)">
+        <g id="Group_28" data-name="Group 28" transform="translate(-284 -8.5)">
+          <g id="Group_11881" data-name="Group 11881" transform="translate(334 113.074)">
+            <circle id="Ellipse_69" data-name="Ellipse 69" cx="75" cy="75" r="75" transform="translate(0 0.426)" fill="#09f"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g id="Group_54" data-name="Group 54" transform="translate(24141.266 16453)">
+      <path id="Path_24" data-name="Path 24" d="M-23524.268-16060.213h85.77v-48.486l-13.672-10.1h-56.889l-14.107,10.1Z" transform="translate(0.002 4.229)" fill="none" stroke="#fff" stroke-width="3"/>
+      <path id="Path_25" data-name="Path 25" d="M-23523.467-16111.334l40.955,30.486,43.16-30.486" transform="translate(0.302 7.047)" fill="none" stroke="#fff" stroke-width="3"/>
+      <path id="Path_26" data-name="Path 26" d="M-23486.133-16093.734l34.111,25.016" transform="translate(13.344 12.918)" fill="none" stroke="#fff" stroke-width="3"/>
+      <path id="Path_27" data-name="Path 27" d="M-23491.074-16093.734l-33.059,23.141" transform="translate(0.05 13.69)" fill="none" stroke="#fff" stroke-width="3"/>
+      <path id="Path_28" data-name="Path 28" d="M-23513.07-16093.67V-16130h56.389v35.09l-29.812,20.928Z" transform="translate(4.229)" fill="#fff" stroke="#fff" stroke-width="1"/>
+      <line id="Line_4" data-name="Line 4" x2="17.907" transform="translate(-23499.795 -16118.292)" fill="none" stroke="#09f" stroke-width="2"/>
+      <line id="Line_5" data-name="Line 5" x2="35.997" transform="translate(-23499.977 -16108.649)" fill="none" stroke="#09f" stroke-width="2"/>
+      <line id="Line_6" data-name="Line 6" x2="35.997" y2="0.229" transform="translate(-23499.977 -16099.235)" fill="none" stroke="#09f" stroke-width="2"/>
+    </g>
+  </g>
+</svg>
