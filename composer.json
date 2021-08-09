@@ -2,7 +2,7 @@
     "name": "ip-craft/dynamic-email-template-pro",
     "description": "You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.",
     "type": "craft-plugin",
-    "version": "1.0.2",
+    "version": "1.0.1",
     "keywords": [
         "craft",
         "cms",
@@ -40,7 +40,7 @@
     },
     "extra": {
         "name": "Dynamic email template Pro",
-        "handle": "dynamic-email-template-pro",
+        "handle": "email-templates",
         "developer": "Infanion",
         "developerUrl": "https://www.infanion.com/",
         "documentationUrl": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/README.md",
