@@ -1,7 +1,22 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Dynamic email template Pro plugin for Craft CMS 3.x
+ *
+ * Dynamic email template Pro index.twig
+ *
+ * @author    Infanion
+ * @copyright Copyright (c) 2021 Infanion
+ * @link      https://www.infanion.com/
+ * @package   DynamicEmailTemplatePro
+ * @since     1.0.0
+ */
+#}
+
 {% set parentLayout = '_layouts/elementindex' %}
 {% extends 'email-templates/_layouts' %}
 
 {% set elementType = 'ipcraft\\emailtemplates\\elements\\Mailtemplates' %}
 {% set selectedTab = 'tokens' %}
 {% set showStatusMenu = true %}
-{% set title = 'Email templates' | t('email-templates/tokens') %}
+{% set title = 'Dynamic email template Pro' | t('dynamic-email-template-pro') %}

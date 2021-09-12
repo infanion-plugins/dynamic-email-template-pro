@@ -1,20 +1,39 @@
 <?php
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens 
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
  * @link      https://www.infanion.com/
  * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplates\migrations;
+namespace ipcraft\dynamicemailtemplatepro\migrations;
 
-use ipcraft\emailtemplates\EmailTemplates;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
 
 use Craft;
 use craft\config\DbConfig;
 use craft\db\Migration;
+
+/**
+ * DynamicEmailTemplateProModel Install Migration
+ *
+ * If your plugin needs to create any custom database tables when it gets installed,
+ * create a migrations/ folder within your plugin folder, and save an Install.php file
+ * within it using the following template:
+ *
+ * If you need to perform any additional actions on install/uninstall, override the
+ * safeUp() and safeDown() methods.
+ *
+ *
+ * @author    Infanion
+ * @package   DynamicEmailTemplatePro
+ * @since     1.0.0
+ */
+
+
+
 
 /**
  * Email Templates Install Migration
@@ -98,25 +117,25 @@ class Install extends Migration
         $tablesCreated = false;
 
     // emailtemplates_emailtemplatesrecord table
-        $tableSchema = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_emailtemplatesrecord}}');
+        // $tableSchema = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_emailtemplatesrecord}}');
         $tableSchema_token = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_tokens}}');
         $tableSchema_templates = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_templates}}');
         $tableSchema_content = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_templatecontent}}');
         $tableSchema_templatetokens = Craft::$app->db->schema->getTableSchema('{{%emailtemplates_templatestokens}}');
-        if ($tableSchema === null) {
-            $tablesCreated = true;
-            $this->createTable(
-                '{{%emailtemplates_emailtemplatesrecord}}',
-                [
-                    'id' => $this->primaryKey(),
-                    'dateCreated' => $this->dateTime()->notNull(),
-                    'dateUpdated' => $this->dateTime()->notNull(),
-                    'uid' => $this->uid(),
-                    'siteId' => $this->integer()->notNull(),
-                    'some_field' => $this->string(255)->notNull(),
-                ]
-            );
-        }
+        // if ($tableSchema === null) {
+        //     $tablesCreated = true;
+        //     $this->createTable(
+        //         '{{%emailtemplates_emailtemplatesrecord}}',
+        //         [
+        //             'id' => $this->primaryKey(),
+        //             'dateCreated' => $this->dateTime()->notNull(),
+        //             'dateUpdated' => $this->dateTime()->notNull(),
+        //             'uid' => $this->uid(),
+        //             'siteId' => $this->integer()->notNull(),
+        //             'some_field' => $this->string(255)->notNull(),
+        //         ]
+        //     );
+        // }
         if ($tableSchema_token === null) {
             $this->createTable(
                 '{{%emailtemplates_tokens}}',
@@ -200,24 +219,24 @@ class Install extends Migration
      */
     protected function createIndexes()
     {
-    // emailtemplates_emailtemplatesrecord table
-        $this->createIndex(
-            $this->db->getIndexName(
-                '{{%emailtemplates_emailtemplatesrecord}}',
-                'some_field',
-                true
-            ),
-            '{{%emailtemplates_emailtemplatesrecord}}',
-            'some_field',
-            true
-        );
-        // Additional commands depending on the db driver
-        switch ($this->driver) {
-            case DbConfig::DRIVER_MYSQL:
-                break;
-            case DbConfig::DRIVER_PGSQL:
-                break;
-        }
+    // // emailtemplates_emailtemplatesrecord table
+    //     $this->createIndex(
+    //         $this->db->getIndexName(
+    //             '{{%emailtemplates_emailtemplatesrecord}}',
+    //             'some_field',
+    //             true
+    //         ),
+    //         '{{%emailtemplates_emailtemplatesrecord}}',
+    //         'some_field',
+    //         true
+    //     );
+    //     // Additional commands depending on the db driver
+    //     switch ($this->driver) {
+    //         case DbConfig::DRIVER_MYSQL:
+    //             break;
+    //         case DbConfig::DRIVER_PGSQL:
+    //             break;
+    //     }
     }
 
     /**
@@ -228,15 +247,15 @@ class Install extends Migration
     protected function addForeignKeys()
     {
     // emailtemplates_emailtemplatesrecord table
-        $this->addForeignKey(
-            $this->db->getForeignKeyName('{{%emailtemplates_emailtemplatesrecord}}', 'siteId'),
-            '{{%emailtemplates_emailtemplatesrecord}}',
-            'siteId',
-            '{{%sites}}',
-            'id',
-            'CASCADE',
-            'CASCADE'
-        );
+        // $this->addForeignKey(
+        //     $this->db->getForeignKeyName('{{%emailtemplates_emailtemplatesrecord}}', 'siteId'),
+        //     '{{%emailtemplates_emailtemplatesrecord}}',
+        //     'siteId',
+        //     '{{%sites}}',
+        //     'id',
+        //     'CASCADE',
+        //     'CASCADE'
+        // );
         $this->addForeignKey(
             $this->db->getForeignKeyName('{{%emailtemplates_templatecontent}}', 't_id'),
             '{{%emailtemplates_templatecontent}}',
@@ -284,7 +303,7 @@ class Install extends Migration
     protected function removeTables()
     {
     // emailtemplates_emailtemplatesrecord table
-        $this->dropTableIfExists('{{%emailtemplates_emailtemplatesrecord}}');
+        // $this->dropTableIfExists('{{%emailtemplates_emailtemplatesrecord}}');
         $this->dropTableIfExists('{{%emailtemplates_templatestokens}}');
         $this->dropTableIfExists('{{%emailtemplates_tokens}}');
         $this->dropTableIfExists('{{%emailtemplates_templatecontent}}');

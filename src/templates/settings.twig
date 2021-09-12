@@ -1,21 +1,21 @@
 {# @var craft \craft\web\twig\variables\CraftVariable #}
 {#
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * Email Templates Settings.twig
+ * Dynamic email template Pro Settings.twig
  *
  * @author    Infanion
  * @copyright Copyright (c) 2021 Infanion
  * @link      https://www.infanion.com/
- * @package   EmailTemplates
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 #}
 
 {% import "_includes/forms" as forms %}
 
-{% do view.registerAssetBundle("ipcraft\\emailtemplates\\assetbundles\\emailtemplates\\EmailTemplatesAsset") %}
+{% do view.registerAssetBundle("ipcraft\\dynamicemailtemplatepro\\assetbundles\\dynamicemailtemplatepro\\DynamicEmailTemplateProAsset") %}
 
 {{ forms.textField({
     label: 'Some Field',

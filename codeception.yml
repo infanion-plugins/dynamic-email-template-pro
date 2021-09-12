@@ -31,9 +31,9 @@ modules:
       projectConfig: {}
       migrations: []
       plugins:
-        email-templates:
-          class: '\ipcraft\emailtemplates\EmailTemplates'
-          handle: email-templates
+        dynamic-email-template-pro:
+          class: '\ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro'
+          handle: dynamic-email-template-pro
       cleanup: true
       transaction: true
       dbSetup: {clean: true, setupCraft: true}

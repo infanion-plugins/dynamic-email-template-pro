@@ -1,30 +1,29 @@
 <?php
 /**
- * template plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * for managing email templates
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
- * @link      infanion.com
- * @copyright Copyright (c) 2021 infanion
+ * @link      https://www.infanion.com/
+ * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplates\utilities;
+namespace ipcraft\dynamicemailtemplatepro\utilities;
 
-use ipcraft\emailtemplates\EmailTemplates;
-use ipcraft\emailtemplates\assetbundles\emailtemplatesutilityutility\EmailTemplatesUtilityUtilityAsset;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
 
 use Craft;
 use craft\base\Utility;
 
 /**
- * template Utility
+ * Dynamic email template Pro Utility
  *
  * Utility is the base class for classes representing Control Panel utilities.
  *
  * https://craftcms.com/docs/plugins/utilities
  *
- * @author    infanion
- * @package   Template
+ * @author    Infanion
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 class Database

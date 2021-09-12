@@ -1,0 +1,120 @@
+/**
+ * Dynamic email template Pro plugin for Craft CMS
+ *
+ * Dynamic email template Pro CSS
+ *
+ * @author    Infanion
+ * @copyright Copyright (c) 2021 Infanion
+ * @link      https://www.infanion.com/
+ * @package   DynamicEmailTemplatePro
+ * @since     1.0.0
+ */
+
+ .header-div{
+    width:50%;
+    float: left;
+ }
+ .header{
+    width: 100%;
+    margin-bottom: 5px;
+ }
+ #pagination {
+    width: 100%;
+    text-align: center;
+    }
+
+    #pagination ul li {
+    display: inline;
+    margin-left: 10px;
+    }
+    .pg-goto{
+    margin : 5px 5px 0px 5px;
+    padding:5px;
+    width: 32px;
+    height: 32px;
+    background-color: #f3f7fc;
+    justify-content: center;
+    border-radius: 4px;
+    align-items: center;
+    box-shadow: inset 0 0 0 1px rgba(51, 64, 77, 0.1);
+    cursor: pointer;
+
+    }
+    .pg-goto:hover{
+        text-decoration: none;
+        box-shadow: inset 0 0 0 1px #0B69A3;
+    }
+    #records_table{
+        padding: 5px;
+    }
+    
+   .select_field{
+      border-radius: 5px;
+      border: none;
+      font-size: 14px;
+      line-height: 20px;
+      color: #3f4d5a;
+      background-color: rgba(96, 125, 159, 0.25);
+      padding: 7px 22px 7px 10px;
+   }
+
+   .tokens_table{
+      /* background-color: brown; */
+      width:70% !important;
+   }
+
+   .heading_text{
+      font-weight: bold;
+   }
+
+   .handle_names{
+      background-color: blueviolet;
+      color: #3f4d5a;
+   }
+
+   .trans_table_head{
+      background-color: #f3f7fc;
+   }
+
+   .delete-icon-center{
+      padding-left: 7px;
+   }
+   .break{
+      float: left;
+   }
+   /* dropdown arrow for tokens */
+   .drop_img::after{
+      content: '.';
+      font-size: 0;
+      width: 5px;
+      height: 5px;
+      border: solid #596673;
+      border-top-width: medium;
+      border-right-width: medium;
+      border-bottom-width: medium;
+      border-left-width: medium;
+      border-width: 0 2px 2px 0;
+      -webkit-transform: rotate(45deg);
+      -o-transform: rotate(45deg);
+      transform: rotate(45deg);
+      position: absolute;
+      display: block;
+      top: 12px;
+      z-index: 9;
+      right: 10px;
+
+  }
+  .error_class{
+   display: block;
+   color: rgb(207, 17, 36);
+   margin: 0px;
+   margin-bottom: 5px !important;
+  }
+  .error-wrapper {
+     margin-bottom: 0px !important;
+  }
+  .pager{
+   background-color: #f3f7fc;
+   padding: 7px;
+   margin-top: -5px;
+}

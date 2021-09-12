@@ -23,8 +23,8 @@ This module comes with the following features:
 
 ## Requirements
 
-This plugin requires Craft CMS 3.0.0-beta.23 or later. <br>
-This plugin requires Craft CMS Redactor 2.6 or later.
+This plugin requires Craft CMS 3.5.0 or later. <br>
+This plugin requires Craft CMS Redactor 2.0 or later.
 
 ## Installation
 
@@ -99,7 +99,7 @@ After installation, you can edit your email templates in the control panel locat
 
 ## How to use (Programatically):
 
-Add the use statement to your class - use ipcraft\emailtemplates\EmailTemplates;
+Add the use statement to your class - use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
 
 Access sendMail function and pass values Template unique id, Token value, Receivers, Reply to mail, Cc, Bcc, Attachments. As shown below -
 
@@ -145,7 +145,7 @@ $emailService->sendMail($templateId, $tokens, $receiver, $replyTo, $cc, $bcc, $a
 <br>
 Example : -  
 
-use ipcraft\emailtemplates\EmailTemplates;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
  
 $templateId = 'userRegistrationTemplate';
 
@@ -172,7 +172,7 @@ $bcc = [
 
 $attachments = '{domain name}/assets/documents/invoice/invoice.pdf';
 
-$emailService = EmailTemplates::$plugin->emailTemplatesService;
+$emailService = DynamicEmailTemplatePro::$plugin->sendMailService;
 
 $emailService->sendMail($templateId, $tokens, $receiver, $replyTo, $cc, $bcc, $attachments);
 

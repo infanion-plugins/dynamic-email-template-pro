@@ -1,0 +1,158 @@
+{% extends 'dynamic-email-template-pro/_layouts' %}
+{% import '_includes/forms' as forms %}
+{% do view.registerAssetBundle("craft\\redactor\\assets\\redactor\\RedactorAsset") %}
+{% set selectedTab = 'tokens' %}
+{% set crumbs = [
+    { label: 'Tokens' | t('dynamic-email-template-pro'), url: url('dynamic-email-template-pro') }
+] %}
+{% set fullPageForm = true %}
+{% set noTabs = true %}
+{% if data.id == '' %}
+{% set title = 'Add token' | t('dynamic-email-template-pro') %}
+{% else %}
+{% set title = 'Update token' | t('dynamic-email-template-pro') %}
+{% endif %}
+
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    {% if currentUser.can('manageTokens') %}
+        <div id="save-btn-container" class="btngroup submit">
+            <button type="submit" id="token-sumit" class="btn submit">{{ 'Save'|t('dynamic-email-template-pro') }}</button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% set formAttributes = {
+    'id': 'tokenForm',
+    'method': 'post',
+    'accept-charset': 'UTF-8',
+    'data': {
+        'saveshortcut': true,
+        'saveshortcut-scroll': true,
+        'confirm-unload': true,
+        'delta': true,
+    },
+} %}
+
+{% block blockContent %}
+    {% if currentUser.can('manageTokens') %}
+        <form {{ attr(formAttributes) }}>
+
+            {{ actionInput('dynamic-email-template-pro/token/save-token') }}
+            
+            {# <h2 style="margin-bottom: 25px;">Add Token</h2> #}
+
+            <input type="hidden" name="id" value="{{ data.id ?? '' }}">
+
+
+            {% set csrfParam = craft.app.request.csrfParam %}
+            {% set csrfToken = craft.app.request.csrfToken %}
+            <input type="hidden" name="{{ csrfParam }}" value="{{ csrfToken }}">
+            {{ csrfInput() }}
+            <table class='tokens_table'>
+                    <tr>
+                        <td>{{ forms.textField({
+                            first: true,
+                            label: 'Name' | t('dynamic-email-template-pro'),
+                            id: 'name',
+                            name: 'name',
+                            rows: '1',
+                            required: true,
+                            value: data.name ?? '',
+                            errors: name.getErrors('name') ?? '',
+                        }) }}
+                        <p id="error_msg" style="display: none;color:#CF1124">{{'Token name cannot be blank' |t('dynamic-email-template-pro')}}</p>
+                    </td>
+                            
+                    </tr>
+                <tr>
+                    
+                    <td>
+                        {{ forms.textField({
+                            first: true,
+                            label: 'Token' | t('dynamic-email-template-pro'),
+                            id: 'token',
+                            name: 'token', 
+                            required: true,
+                            rows: '1',
+                            class: 'handle_names',
+                            readonly: true,
+                            value: data.token ?? '',
+                            errors: token.getErrors('token') ?? '',
+                        }) }}
+                        <p id="error_msg1" style="display: none;color:red">'Token name cannot be blank' | t('dynamic-email-template-pro')</p>
+                    </td>
+                    
+                </tr>
+            
+                <tr>
+                    <td> {{ forms.textAreaField({
+                            first: true,
+                            label: 'Token description' | t('dynamic-email-template-pro'),
+                            id: 'description',
+                            name: 'description',
+                            instructions: "Add description less than 250 characters"|t('dynamic-email-template-pro'),
+                            rows: '5',
+                            value: data.token_description ?? '',
+                            errors: description.getErrors('codescriptionmment') ?? '',
+                        }) }}
+                    </td>
+                </tr>
+                <tr>
+                    <td> <div class="buttons clearafter">
+                        <button name="submit" value="Submit" type="hidden">
+                        </button>
+                    </div></td>
+                </tr>
+            </table>
+            
+        </form>
+    {% else %}
+        {% include "dynamic-email-template-pro/_errors/nopermission.html" %}
+    {% endif %}
+{% endblock %}
+
+{% js %}
+
+{% if not data.id %}new Craft.HandleGenerator('#name', '#token');{% endif %}
+
+$(function() {
+    
+    $('#token-sumit').click(function(){
+        if($.trim($('#name').val()) == ''){
+            $('#error_msg').css("display","block");
+            $("#error_msg").prev().addClass('error-wrapper');
+        return false;
+    }
+    if($.trim($('#token').val()) == ''){
+            $('#error_msg1').css("display","block");
+            $("#error_msg1").prev().addClass('error-wrapper');
+        return false;
+    }
+
+    });
+    $('#name').focus(function(){
+        $('#error_msg').css("display","none");
+        $("#error_msg").prev().removeClass('error-wrapper');
+    }
+   );
+   $('#token').focus(function(){
+        $('#error_msg1').css("display","none");
+        $("#error_msg1").prev().removeClass('error-wrapper');
+    }
+   );
+   $('.handle_names').css({"background-color": " #cdd8e4"});
+
+});
+
+
+{% endjs %}

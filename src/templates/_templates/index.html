@@ -1,0 +1,46 @@
+{% extends 'dynamic-email-template-pro/_layouts' %}
+{% import '_includes/forms' as forms %}
+
+{% set deleteiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/dynamicemailtemplatepro/assetbundles/dynamicemailtemplatepro/dist', true) ~ '/img/delete-icon.svg' %}
+{% set editiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/dynamicemailtemplatepro/assetbundles/dynamicemailtemplatepro/dist', true) ~ '/img/edit.svg' %}
+
+    
+{% set add = craft.app.request.getParam('add') %}
+
+{% set selectedTab = 'mailtemplates' %}
+
+
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    <div class="headers">
+        <div class="header-div">
+            <div class="flex-grow texticon search icon clearable">
+                <input type="text" class="text trans_search_bar" onkeyup="myFunction()"  placeholder="{{'Search'|t('dynamic-email-template-pro')}}" aria-label="Search" id="myInput">
+            </div>
+        </div>
+    </div>
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    <div id="save-btn-container" class="btngroup submit">
+        {% if currentUser.can('manageTemplates') %}
+            <a class="btn submit add icon" href="{{url('dynamic-email-template-pro/template-new')}}">{{ "New Template"|t('dynamic-email-template-pro') }}</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block blockContent %}
+    {% if not currentUser.can('manageTemplates') %}
+        {% include "dynamic-email-template-pro/_errors/nopermission" %}
+    {% else %}
+        {% include "dynamic-email-template-pro/_templates/template_content" %}
+    {% endif %}
+{% endblock %}
+
+

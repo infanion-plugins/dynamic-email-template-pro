@@ -2,13 +2,13 @@
     "name": "ip-craft/dynamic-email-template-pro",
     "description": "You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.",
     "type": "craft-plugin",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "keywords": [
         "craft",
         "cms",
         "craftcms",
         "craft-plugin",
-        "email templates"
+        "dynamic email template pro"
     ],
     "support": {
         "email": "support-craftplugins@infanion.com",
@@ -16,7 +16,6 @@
         "docs": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/README.md",
         "issues": "https://github.com/infanion-plugins/dynamic-email-template-pro/issues"
     },
-
     "license": "proprietary",
     "authors": [
         {
@@ -25,29 +24,28 @@
         }
     ],
     "require": {
-        "craftcms/cms": "^3.0.0",
-        "craftcms/redactor": "^2.6"
-    },
-    "require-dev": {
-      "craftcms/cms": "^3.2.0",
-      "codeception/codeception": "^3.0",
-      "vlucas/phpdotenv": "^3.0"
+        "craftcms/cms": "^3.5.0",
+        "craftcms/redactor": "^2.0"
     },
     "autoload": {
         "psr-4": {
-          "ipcraft\\emailtemplates\\": "src/"
+          "ipcraft\\dynamicemailtemplatepro\\": "src/"
         }
     },
     "extra": {
         "name": "Dynamic email template Pro",
-        "handle": "email-templates",
+        "handle": "dynamic-email-template-pro",
         "developer": "Infanion",
         "developerUrl": "https://www.infanion.com/",
         "documentationUrl": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/README.md",
         "changelogUrl": "https://github.com/infanion-plugins/dynamic-email-template-pro/blob/master/CHANGELOG.md",
         "components": {
-            "emailTemplatesService": "ipcraft\\emailtemplates\\services\\EmailTemplatesService"
+            "tokenService": "ipcraft\\dynamicemailtemplatepro\\services\\TokenService",
+            "templateService": "ipcraft\\dynamicemailtemplatepro\\services\\TemplateService",
+            "contentService": "ipcraft\\dynamicemailtemplatepro\\services\\ContentService",
+            "sendMailService": "ipcraft\\dynamicemailtemplatepro\\services\\SendMailService",
+            "testService": "ipcraft\\dynamicemailtemplatepro\\services\\TestService"
         },
-        "class": "ipcraft\\emailtemplates\\EmailTemplates"
+        "class": "ipcraft\\dynamicemailtemplatepro\\DynamicEmailTemplatePro"
     }
 }

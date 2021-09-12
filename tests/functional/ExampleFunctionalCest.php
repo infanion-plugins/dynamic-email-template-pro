@@ -1,6 +1,6 @@
 <?php
 
-namespace ipcraft\emailtemplatestests\acceptance;
+namespace ipcraft\dynamicemailtemplateprotests\acceptance;
 
 use Craft;
 use FunctionalTester;

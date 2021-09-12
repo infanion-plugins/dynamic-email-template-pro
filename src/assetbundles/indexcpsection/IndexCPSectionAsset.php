@@ -1,14 +1,14 @@
 <?php
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens 
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
  * @link      https://www.infanion.com/
  * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplates\assetbundles\indexcpsection;
+namespace ipcraft\dynamicemailtemplatepro\assetbundles\indexcpsection;
 
 use Craft;
 use craft\web\AssetBundle;
@@ -29,7 +29,7 @@ use craft\web\assets\cp\CpAsset;
  * http://www.yiiframework.com/doc-2.0/guide-structure-assets.html
  *
  * @author    Infanion
- * @package   EmailTemplates
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 class IndexCPSectionAsset extends AssetBundle
@@ -43,7 +43,7 @@ class IndexCPSectionAsset extends AssetBundle
     public function init()
     {
         // define the path that your publishable resources live
-        $this->sourcePath = "@ipcraft/emailtemplates/assetbundles/indexcpsection/dist";
+        $this->sourcePath = "@ipcraft/dynamicemailtemplatepro/assetbundles/indexcpsection/dist";
 
         // define the dependencies
         $this->depends = [

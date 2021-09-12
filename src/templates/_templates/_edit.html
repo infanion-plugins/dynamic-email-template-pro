@@ -1,0 +1,240 @@
+{% extends 'dynamic-email-template-pro/_layouts' %}
+{% import '_includes/forms' as forms %}
+{% set dropdownUrl = view.getAssetManager().getPublishedUrl('@ipcraft/dynamicemailtemplatepro/assetbundles/dynamicemailtemplatepro/dist', true) ~ '/img/dropdown.png' %}
+{% do view.registerAssetBundle("craft\\redactor\\assets\\redactor\\RedactorAsset") %}
+{% set selectedTab = 'templates' %}
+{% if noTabs is not defined and craft.app.config.general.allowAdminChanges %}
+    {% set tabs = {
+        templates: { label: 'Template' | t('dynamic-email-template-pro'), url: '#temp' },
+        config: { label: 'Configuration' | t('dynamic-email-template-pro'), url: '#tempconfig' },
+    } %}
+
+{% endif %}
+{% set crumbs = [
+    { label: 'Templates' | t('dynamic-email-template-pro'), url: url('dynamic-email-template-pro/templates') },
+] %}
+
+{% set fullPageForm = true %}
+{% set noTabs = true %}
+{% set temp_name = false %}
+{% if data.templateId == '' %}
+{% set title = 'Add template' | t('dynamic-email-template-pro') %}
+{% else %}
+{% set title = 'Update template' | t('dynamic-email-template-pro') %}
+{% endif %}
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    {% if currentUser.can('manageTemplates') %}
+        <div id="save-btn-container" class="btngroup submit">
+        <button type="submit" id="template-sumit" class="btn submit">{{ 'Save'|t('dynamic-email-template-pro') }}</button>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% set formAttributes = {
+    'id': 'templateForm',
+    'method': 'post',
+    'accept-charset': 'UTF-8',
+    'data': {
+        'saveshortcut': true,
+        'saveshortcut-scroll': true,
+        'confirm-unload': true,
+        'delta': true,
+    },
+} %}
+
+{% block blockContent %}
+    {% if currentUser.can('manageTemplates') %}
+        <form {{ attr(formAttributes) }}>
+            <input type="hidden" name="templateId" value="{{ data.templateId ?? '' }}">
+        
+        {# <h2 style="margin-bottom: 25px;">Add Token</h2> #}
+        {{ actionInput('dynamic-email-template-pro/template/save-template') }}
+        {% set csrfParam = craft.app.request.csrfParam %}
+        {% set csrfToken = craft.app.request.csrfToken %}
+        <input type="hidden" name="{{ csrfParam }}" value="{{ csrfToken }}">
+        {{ csrfInput() }}
+        <div id="temp">
+        <table class='tokens_table'>
+            <tr>
+                <td>{{ forms.textField({
+                        first: true,
+                        label: 'Template name' | t('dynamic-email-template-pro'),
+                        id: 'name',
+                        name: 'name',
+                        rows: '1',
+                        required:true,
+                        value: data.name ?? '',
+                        errors: name.getErrors('name') ?? '',
+                    }) }}
+                
+                    <p id="error_msg" style="display: none;color:#CF1124">Template name cannot be blank</p>
+             
+                </td>
+                   
+                    
+                   
+            </tr>
+            <tr>
+                <td>{{ forms.textField({
+                        first: true,
+                        label: 'Template unique id' | t('dynamic-email-template-pro'),
+                        id: 'template_unique_id',
+                        name: 'template_unique_id',
+                        instructions: "This field will be filled automatically"|t('dynamic-email-template-pro'),
+                        required:true,
+                        rows: '1',
+                        class: 'handle_names',
+                        readonly: true,
+                        value: data.template_unique_id ?? '',
+                        autocorrect: false,
+                        autocapitalize: false,
+                        errors: name.getErrors('template_unique_id') ?? '',
+                    }) }}
+                </td>
+            </tr>
+            <tr>
+                <td>{{ forms.multiselectField({
+                        first: true,
+                        label: 'Select tokens' | t('dynamic-email-template-pro'),
+                        instructions: "Select any tokens from below list"|t('dynamic-email-template-pro'),
+                        id: 'tokens',
+                        name: 'tokens',
+                        rows: '1',
+                        values: data.tokens.values ?? [],
+                        options: data.tokens.options,
+  
+                        class: 'selectize fullwidth  drop_img form-select',
+                        errors: name.getErrors('tokens') ?? '',
+                    }) }}
+                </td>
+            </tr>
+            <tr>
+                <td> {{ forms.textAreaField({
+                        first: true,
+                        label: 'Template description' | t('dynamic-email-template-pro'),
+                        id: 'description',
+                        name: 'description',
+                        instructions: "Add description less than 250 characters"|t('dynamic-email-template-pro'),
+                        rows: '5',
+                        value: data.description ?? '',
+                        errors: description.getErrors('codescriptionmment') ?? '',
+                    }) }}
+                    
+                </td>
+            </tr>
+            <tr>
+                <td> <div class="buttons clearafter">
+                    <button name="submit" type="hidden">
+                </div></td>
+            </tr>
+        </table>
+    </div>
+    
+        <div id="tempconfig" class="hidden">
+                <table class='tokens_table'>
+        
+              
+                        <tr>
+                            <td>{{ forms.textField({
+                                    first: true,
+                                    label: 'From email address' | t('dynamic-email-template-pro'),
+                                    instructions: "Add from email address"|t('dynamic-email-template-pro'),
+                                    id: 'from',
+                                    name: 'from',
+                                    rows: '1',
+                                    value: data.from ?? '',
+                                    class: 'selectize fullwidth',
+                                    errors: name.getErrors('tokens') ?? '',
+                                }) }}</td>
+                        </tr>
+                        <tr>
+                                <td>{{ forms.textField({
+                                        first: true,
+                                        label: 'From name' | t('dynamic-email-template-pro'),
+                                        instructions: "Add from name"|t('dynamic-email-template-pro'),
+                                        id: 'alias',
+                                        name: 'alias',
+                                        rows: '1',
+                                        value: data.alias ?? '',
+                                        class: 'selectize fullwidth',
+                                        errors: name.getErrors('alias') ?? '',
+                                    }) }}
+                                </td>
+                         </tr>
+                        <tr>
+                            <td> <div class="buttons clearafter">
+                                <button name="submit" type="hidden">
+                            </div></td>
+                        </tr>
+                    </table>
+        </div>
+        </form>
+    {% else %}
+        {% include "dynamic-email-template-pro/_errors/nopermission.html" %}
+    {% endif %}
+    
+{% endblock %}
+
+
+{% js %}
+
+{% if not data.templateId %}new Craft.HandleGenerator('#name', '#template_unique_id');{% endif %}
+
+$(function() {
+    $('#tokens, #productTypes').selectize({
+        plugins: ['remove_button'],
+        dropdownParent: 'body'
+    });
+
+    $("form").submit(function() {
+        $("input[name=ignorePrevious]").prop('disabled', false);
+        if ($("input[name=ignorePrevious]").prop('checked') == true) {
+            $("#ignorePrevious-field").css('opacity', 0.25);
+        }
+        ;
+    });
+
+    $('select[name=apply]').change(function() {
+
+        if (this.value == 'byPercent' || this.value == 'toPercent') {
+            $('#applyAmount-percent-symbol').removeClass('hidden');
+            $('#applyAmount-currency-symbol').addClass('hidden');
+        }else{
+            $('#applyAmount-percent-symbol').addClass('hidden');
+            $('#applyAmount-currency-symbol').removeClass('hidden');
+        }
+
+        if (this.value == 'toFlat' || this.value == 'toPercent') {
+            $('input[name=ignorePrevious]').prop('disabled', true);
+            $('input[name=ignorePrevious]').prop('checked', true);
+        }
+        if (this.value != 'toFlat' && this.value != 'toPercent') {
+            $('input[name=ignorePrevious]').prop('disabled', false);
+            $('input[name=ignorePrevious]').prop('checked', false);
+        }
+    });
+    $('#template-sumit').click(function(){
+        if($.trim($('#name').val()) == ''){
+            $('#error_msg').css("display","block");
+            $("#error_msg").prev().addClass('error-wrapper');
+        return false;
+    }
+    });
+    $('#name').focus(function(){
+        $('#error_msg').css("display","none");
+        $("#error_msg").prev().removeClass('error-wrapper');
+    }
+   );
+   $('.handle_names').css({"background-color": " #cdd8e4"});
+});
+{% endjs %}

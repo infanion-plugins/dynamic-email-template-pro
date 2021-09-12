@@ -1,33 +1,23 @@
 <?php
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens 
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
  * @link      https://www.infanion.com/
  * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplates\controllers;
+namespace ipcraft\dynamicemailtemplatepro\controllers;
 
-use ipcraft\emailtemplates\EmailTemplates;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
+
 use Craft;
 use craft\web\Controller;
 use Exception;
 
-use craft\web\Request;
-use craft\helpers\App;
-use craft\helpers\Template;
-use craft\web\View;
-use craft\elements\User;
-use yii\base\InvalidConfigException;
-use yii\helpers\Markdown;
-use yii\mail\MessageInterface;
-use craft\services\Users;
-use craft\elements\Entry;
-
 /**
- * Default Controller
+ * Content Controller
  *
  * Generally speaking, controllers are the middlemen between the front end of
  * the CP/website and your plugin’s services. They contain action methods which
@@ -43,7 +33,7 @@ use craft\elements\Entry;
  * https://craftcms.com/docs/plugins/controllers
  *
  * @author    Infanion
- * @package   EmailTemplates
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 class ContentController extends Controller
@@ -62,23 +52,22 @@ class ContentController extends Controller
     // Public Methods
     // =========================================================================
 
-    
-    public function actionAddContent()
-    {
-        $resData = [];
-        $Language_options = EmailTemplates::$plugin->emailTemplatesService->getLanguageOptions();
-        $Template_options = EmailTemplates::$plugin->emailTemplatesService->getTemplateOptions();
-        $resData['lang']['options'] =  $Language_options;
-        $resData['lang']['values'] =  $Language_options;
-        $resData['temp']['options'] =  $Template_options;
-        $resData['temp']['values'] =  $Template_options;
-        return $this->renderTemplate(                                                                                                                 
-            'email-templates/mailcontents/add.html', 
-            [
-                'data' => $resData
-            ]                                                                                                                                                                                                                                                                                  
-        );
-    }
+    // public function actionAddContent()
+    // {
+    //     $resData = [];
+    //     $Language_options = DynamicEmailTemplatePro::$plugin->contentService->getLanguageOptions();
+    //     $Template_options = DynamicEmailTemplatePro::$plugin->contentService->getTemplateOptions();
+    //     $resData['lang']['options'] =  $Language_options;
+    //     $resData['lang']['values'] =  $Language_options;
+    //     $resData['temp']['options'] =  $Template_options;
+    //     $resData['temp']['values'] =  $Template_options;
+    //     return $this->renderTemplate(                                                                                                                 
+    //         'email-templates/mailcontents/add.html', 
+    //         [
+    //             'data' => $resData
+    //         ]                                                                                                                                                                                                                                                                                  
+    //     );
+    // }
 
    
     public function actionSaveContent()
@@ -91,20 +80,20 @@ class ContentController extends Controller
         $resData['body'] = $data['body'];
         $resData['tempid'] = $data['tempid'];
         try {
-                $result = EmailTemplates::$plugin->emailTemplatesService->saveContents();
+                $result = DynamicEmailTemplatePro::$plugin->contentService->saveContents();
             }
         catch (Exception $e){
-            $session->error = $e->getMessage();
+            // $session->error = $e->getMessage();
             return $this->renderTemplate(                                                                                                                 
-                'email-templates/mailtemplates/add',                                                                                                                              
+                'dynamic-email-template-pro/_content/_edit',                                                                                                                              
                 [                                                                                                                                                     
                     'data' => $resData,                                                                                                                              
                 ]                                                                                                                                                     
             );
         }
-        $results = EmailTemplates::$plugin->emailTemplatesService->fetchTemplates();
+        $results = DynamicEmailTemplatePro::$plugin->contentService->fetchTemplates();
         return $this->renderTemplate(                                                                                                                 
-            'email-templates/mailtemplates/index',                                                                                                                              
+            'dynamic-email-template-pro/_templates',                                                                                                                              
             [                                                                                                                                                     
                 'results' => $results,                                                                                                                              
             ]                                                                                                                                                     
@@ -115,11 +104,10 @@ class ContentController extends Controller
 
     public function actionUpdateContents()
     {
-        // $this->requirePermission('manageContent');
         $resData = [];
 
-        $Language_options = EmailTemplates::$plugin->emailTemplatesService->getLanguageOptions();
-        $Template_options = EmailTemplates::$plugin->emailTemplatesService->getTemplateOptions();
+        $Language_options =  DynamicEmailTemplatePro::$plugin->contentService->getLanguageOptions();
+        $Template_options =  DynamicEmailTemplatePro::$plugin->contentService->getTemplateOptions();
         $resData['lang']['options'] =  $Language_options;
         $resData['lang']['values'] =  $Language_options;
         $resData['temp']['options'] =  $Template_options;
@@ -130,11 +118,11 @@ class ContentController extends Controller
         $resData['lang_id'] =  $l_id;
         $temp_id = $lang_data['tempid'];
         $session = Craft::$app->getSession();
-        $tokens = EmailTemplates::$plugin->emailTemplatesService->getTemplateTokens($lang_data['tempid']);
-        $used_tokens = EmailTemplates::$plugin->emailTemplatesService->UsedTokens($tokens);
+        $tokens = DynamicEmailTemplatePro::$plugin->contentService->getTemplateTokens($lang_data['tempid']);
+        $used_tokens = DynamicEmailTemplatePro::$plugin->contentService->UsedTokens($tokens);
         
         try{
-            $results = EmailTemplates::$plugin->emailTemplatesService->updateContents();
+            $results = DynamicEmailTemplatePro::$plugin->contentService->updateContents();
             if($results){
                 foreach($results as $res){
                     $resData['result']['subject'] =  $res['subject'];
@@ -151,18 +139,15 @@ class ContentController extends Controller
 
             }
             return $this->renderTemplate(                                                                                                                 
-                'email-templates/mailcontents/update.html',                                                                                                                              
+                'dynamic-email-template-pro/_content/_edit',                                                                                                                              
                 [                                                                                                                                                     
-                    'data' => $resData,
-                    'manageTokens' => Craft::$app->user->checkPermission('manageTokens'),
-                    'manageTemplates' => Craft::$app->user->checkPermission('manageTemplates'),
-                    'manageContent' =>    Craft::$app->user->checkPermission('manageContent'),                                                                                                                            
+                    'data' => $resData,                                                                                                                          
                 ]                                                                                                                                                     
             );
             
         }
         catch(Exception $e) {
-            $session->error = $e->getMessage();
+            // $session->error = $e->getMessage();
         }
 
     }
@@ -178,24 +163,20 @@ class ContentController extends Controller
         $session = Craft::$app->getSession();
 
         try {
-            $result = EmailTemplates::$plugin->emailTemplatesService->saveUpdatedContent();
+            $result = DynamicEmailTemplatePro::$plugin->contentService->saveUpdatedContent();
         }
         catch (Exception $e){
-            $session->error = $e->getMessage();
+            // $session->error = $e->getMessage();
             return $this->renderTemplate(                                                                                                                 
-                'email-templates/mailcontents/update',                                                                                                                              
+                'dynamic-email-template-pro/_content/_edit',                                                                                                                              
                 [                                                                                                                                                     
-                    'data' => $resData,
-                    'manageTokens' => Craft::$app->user->checkPermission('manageTokens'),
-                    'manageTemplates' => Craft::$app->user->checkPermission('manageTemplates'),
-                    'manageContent' =>    Craft::$app->user->checkPermission('manageContent'),                                                                                                                               
+                    'data' => $resData                                                                                                                             
                 ]                                                                                                                                                     
             );
         }
 
-        $results = EmailTemplates::$plugin->emailTemplatesService->fetchTemplates();
+        $results = DynamicEmailTemplatePro::$plugin->contentService->fetchTemplates();
 
-        return $this->redirect('email-templates/mailtemplates');
+        return $this->redirect('dynamic-email-template-pro/templates');
     }
-
 }

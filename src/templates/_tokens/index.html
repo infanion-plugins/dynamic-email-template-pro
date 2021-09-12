@@ -1,0 +1,72 @@
+{% extends 'dynamic-email-template-pro/_layouts' %}
+{% import '_includes/forms' as forms %}
+
+{% set deleteiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/dynamicemailtemplatepro/assetbundles/dynamicemailtemplatepro/dist', true) ~ '/img/delete-icon.svg' %}
+{% set editiconUrl = view.getAssetManager().getPublishedUrl('@ipcraft/dynamicemailtemplatepro/assetbundles/dynamicemailtemplatepro/dist', true) ~ '/img/edit.svg' %}
+
+{% set selectedTab = 'tokens' %}
+
+{% set baseUrl = craft.app.request.serverName %}
+
+{% block header %}
+  <div class="flex flex-nowrap">
+    {{ block('pageTitle') }}
+    {{ block('contextMenu') }}
+  </div>
+  <div class="flex">
+    <div class="headers">
+        <div class="header-div">
+            <div class="flex-grow texticon search icon clearable">
+                <input type="text" class="text trans_search_bar" onkeyup="myFunction()"  placeholder="{{'Search'|t}}" aria-label="Search" id="myInput">
+            </div>
+        </div>
+    </div>
+    {{ block('actionButton') }}
+  </div>
+{% endblock %}
+
+{% block actionButton %}
+    <div id="save-btn-container" class="btngroup submit">
+        {% if currentUser.can('manageTokens') %}
+            <a class="btn submit add icon" href="{{ url('dynamic-email-template-pro/token/new') }}">{{ "New Token"|t('dynamic-email-template-pro') }}</a>
+        {% endif %}
+    </div>
+{% endblock %}
+
+{% block blockContent %}
+
+    {% if currentUser.can('manageTokens') %}
+        <table id="records_table" border='1' width="100%" class="paginated">
+                <thead class="trans_table_head">
+                    <tr class="">
+                        <th>{{'Name'|t('dynamic-email-template-pro')}}</th>
+                        <th>{{'Token'|t('dynamic-email-template-pro')}}</th>
+                        <th>{{'Description'|t('dynamic-email-template-pro')}}</th>
+                        <th>{{'Actions'|t('dynamic-email-template-pro')}}</th>                
+                    </tr>
+                </thead>
+                {% for res in results %}
+                    <tbody>
+                        <tr><td>{{res['name']|striptags|trim }}</td>
+                            <td>{{res['token'] }}</td>
+                            <td>{{res['token_description']|striptags|trim}}</td>
+                            <td>
+                                <span class="delete-icon-center">
+                                    <a href="dynamic-email-template-pro/update?id={{res['id']}}"  title="Edit" role="button">
+                                        <img src="{{editiconUrl}}" width="15" height="15">
+                                    </a>
+                                </span>
+                                <span class="delete-icon-center">
+                                    <a href="dynamic-email-template-pro/remove?id={{res['id']}}&destination={{ craft.app.request.hostInfo() ~ craft.app.request.url()  }}" onclick="return confirm('Are you sure do you want to remove?')" data-v-17492936="" title="Delete" role="button" href="#" data-v-23911c86="">
+                                        <img src="{{deleteiconUrl}}" width="15" height="15">
+                                    </a>
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+        </table>
+    {% else %}
+        {% include "dynamic-email-template-pro/_errors/nopermission.html" %}
+    {% endif %}
+{% endblock %}

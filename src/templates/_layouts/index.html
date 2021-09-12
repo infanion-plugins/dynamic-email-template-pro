@@ -1,14 +1,14 @@
 {% extends parentLayout ?? '_layouts/cp' %}
-{% set pluginCpUrl = url('email-templates') %}
+{% set pluginCpUrl = url('dynamic-email-template-pro') %}
 
-{% do view.registerAssetBundle("ipcraft\\emailtemplates\\assetbundles\\emailtemplates\\EmailTemplatesAsset") %}
-{% do view.registerAssetBundle("ipcraft\\emailtemplates\\assetbundles\\indexcpsection\\IndexCPSectionAsset") %}
+{% do view.registerAssetBundle("ipcraft\\dynamicemailtemplatepro\\assetbundles\\dynamicemailtemplatepro\\DynamicEmailTemplateProAsset") %}
+{% do view.registerAssetBundle("ipcraft\\dynamicemailtemplatepro\\assetbundles\\indexcpsection\\IndexCPSectionAsset") %}
 
 {# {% if noTabs is not defined and currentUser.admin and craft.app.config.general.allowAdminChanges %} #}
 {% if noTabs is not defined and craft.app.config.general.allowAdminChanges %}
     {% set tabs = {
-        tokens: { label: 'Tokens' | t('tokens'), url: url('email-templates') },
-        mailtemplates: { label: 'Templates' | t('mailtemplates'), url: url('email-templates/mailtemplates') },
+        tokens: { label: 'Tokens' | t('dynamic-email-template-pro'), url: url('dynamic-email-template-pro') },
+        mailtemplates: { label: 'Templates' | t('dynamic-email-template-pro'), url: url('dynamic-email-template-pro/templates') },
     } %}
 
 {% endif %}

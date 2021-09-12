@@ -1,26 +1,26 @@
 <?php
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens 
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
  * @link      https://www.infanion.com/
  * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplatestests\unit;
+namespace ipcraft\dynamicemailtemplateprotests\unit;
 
 use Codeception\Test\Unit;
 use UnitTester;
 use Craft;
-use ipcraft\emailtemplates\EmailTemplates;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
 
 /**
  * ExampleUnitTest
  *
  *
  * @author    Infanion
- * @package   EmailTemplates
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 class ExampleUnitTest extends Unit
@@ -45,8 +45,8 @@ class ExampleUnitTest extends Unit
     public function testPluginInstance()
     {
         $this->assertInstanceOf(
-            EmailTemplates::class,
-            EmailTemplates::$plugin
+            DynamicEmailTemplatePro::class,
+            DynamicEmailTemplatePro::$plugin
         );
     }
 

@@ -1,22 +1,22 @@
 <?php
 /**
- * Email Templates plugin for Craft CMS 3.x
+ * Dynamic email template Pro plugin for Craft CMS 3.x
  *
- * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens 
+ * You can build and manage your email templates used in your Craft website or Craft Commerce. Emails can be sent dynamically from your application, by using tokens.
  *
  * @link      https://www.infanion.com/
  * @copyright Copyright (c) 2021 Infanion
  */
 
-namespace ipcraft\emailtemplates\models;
+namespace ipcraft\dynamicemailtemplatepro\models;
 
-use ipcraft\emailtemplates\EmailTemplates;
+use ipcraft\dynamicemailtemplatepro\DynamicEmailTemplatePro;
 
 use Craft;
 use craft\base\Model;
 
 /**
- * EmailTemplates Settings Model
+ * DynamicEmailTemplatePro Settings Model
  *
  * This is a model used to define the plugin's settings.
  *
@@ -26,7 +26,7 @@ use craft\base\Model;
  * https://craftcms.com/docs/plugins/models
  *
  * @author    Infanion
- * @package   EmailTemplates
+ * @package   DynamicEmailTemplatePro
  * @since     1.0.0
  */
 class Settings extends Model
@@ -40,7 +40,6 @@ class Settings extends Model
      * @var string
      */
     public $someAttribute = 'Some Default';
-    public $permissions;
 
     // Public Methods
     // =========================================================================

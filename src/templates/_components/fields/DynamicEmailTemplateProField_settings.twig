@@ -1,0 +1,26 @@
+{# @var craft \craft\web\twig\variables\CraftVariable #}
+{#
+/**
+ * Dynamic email template Pro plugin for Craft CMS
+ *
+ * DynamicEmailTemplateProField Field Settings
+ *
+ * @author    Infanion
+ * @copyright Copyright (c) 2021 Infanion
+ * @link      https://www.infanion.com/
+ * @package   DynamicEmailTemplatePro
+ * @since     1.0.0
+ */
+#}
+
+{% import "_includes/forms" as forms %}
+
+{% do view.registerAssetBundle("ipcraft\\dynamicemailtemplatepro\\assetbundles\\dynamicemailtemplatepro\\DynamicEmailTemplateProAsset") %}
+
+{{ forms.textField({
+    label: 'Some Attribute',
+    instructions: 'Enter some attribute here.',
+    id: 'someAttribute',
+    name: 'someAttribute',
+    value: field['someAttribute']})
+}}
